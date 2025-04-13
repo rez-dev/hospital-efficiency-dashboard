@@ -12,6 +12,16 @@ from models.hospital import Base
 
 Base.metadata.create_all(bind=engine)
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # ⚠️ Puedes restringirlo a ["http://localhost:5173"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/hospitales")
 def listar_hospitales():
     db = SessionLocal()
